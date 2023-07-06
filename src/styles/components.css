@@ -4,7 +4,7 @@
 
 .round-button {
   cursor: pointer;
-  display: grid;
+  display: inline-grid;
   place-items: center;
   border: 0;
   aspect-ratio: 1;
@@ -12,6 +12,7 @@
 }
 
 .large-button {
+  font-size: 2rem;
   --round-gap: 2em;
   position: relative;
   z-index: 1;

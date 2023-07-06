@@ -1,5 +1,52 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import logo from "../assets/shared/logo.svg";
 ---
 
-<MainLayout />
+<MainLayout class="home">
+  <header class="primary-header flex">
+    <div>
+      <img src={logo} alt="space tourism logo" class="logo" />
+    </div>
+    <nav>
+      <ul id="primary-navigation" class="primary-navigation underline-indicators flex">
+        <li class="active"><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="/"><span>00</span>Home</a></li>
+        <li><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="/destination"><span>01</span>Destination</a></li>
+        <li><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="/crew"><span>02</span>Crew</a></li>
+        <li><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="/technology"><span>03</span>Technology</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="grid-container grid-container--home">
+    <div>
+      <h1 class="text-accent ff-sans-cond uppercase letter-spacing-1">
+        So, you want to travel to <span class="d-block fs-900 ff-serif text-white">Space</span>
+      </h1>
+      <p>
+        Let’s face it; if you want to go to space, you might as well genuinely go to outer space and not hover kind of on the edge of it.
+        Well sit back, and relax because we’ll give you a truly out of this world experience!
+      </p>
+    </div>
+    <div>
+      <a href="#" class="round-button large-button uppercase ff-serif fs-600 text-dark bg-white">Explore</a>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .home {
+    background-image: url(../assets/home/background-home-mobile.jpg);
+  }
+
+  @media (min-width: 35em) {
+    .home {
+      background-position: center center;
+      background-image: url(../assets/home/background-home-tablet.jpg);
+    }
+  }
+  @media (min-width: 45em) {
+    .home {
+      background-image: url(../assets/home/background-home-desktop.jpg);
+    }
+  }
+</style>

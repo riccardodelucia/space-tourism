@@ -1,5 +1,6 @@
 ---
 import Heading from "../components/Heading.astro";
+const { class: className } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -7,7 +8,7 @@ import Heading from "../components/Heading.astro";
   <head>
     <Heading />
   </head>
-  <body class="bg-dark">
+  <body class:list={["bg-dark", className]}>
     <slot />
   </body>
 </html>
