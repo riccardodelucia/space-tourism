@@ -93,6 +93,7 @@ body {
   grid-template-rows: min-content 1fr;
   background-size: cover;
   background-position: bottom center;
+  overflow-x: hidden;
 }
 
 /* make images easier to work with */

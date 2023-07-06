@@ -39,24 +39,6 @@
   transform: scale(1.5);
 }
 
-.primary-navigation {
-  --underline-gap: 2rem;
-  --gap: 8rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.primary-navigation a {
-  text-decoration: none;
-}
-
-.primary-navigation a > span {
-  font-weight: 700;
-  color: hsl(var(--clr-white));
-  margin-right: 0.5em;
-}
-
 .underline-indicators > * {
   cursor: pointer;
   padding: var(--underline-gap, 1rem) 0;
