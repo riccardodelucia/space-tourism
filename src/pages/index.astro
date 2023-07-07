@@ -4,8 +4,10 @@ import PrimaryHeader from "../components/PrimaryHeader.astro";
 ---
 
 <MainLayout class="home">
+  <a class="skip-to-content" href="#main">Skip to content</a>
+
   <PrimaryHeader />
-  <div class="grid-container grid-container--home">
+  <main id="main" class="grid-container grid-container--home">
     <div>
       <h1 class="text-accent ff-sans-cond uppercase letter-spacing-1">
         So, you want to travel to <span class="d-block fs-900 ff-serif text-white">Space</span>
@@ -18,10 +20,25 @@ import PrimaryHeader from "../components/PrimaryHeader.astro";
     <div>
       <a href="#" class="round-button large-button uppercase ff-serif fs-600 text-dark bg-white">Explore</a>
     </div>
-  </div>
+  </main>
 </MainLayout>
 
 <style>
+  .skip-to-content {
+    position: absolute;
+    z-index: 9999;
+    background: hsl(var(--clr-white));
+    color: hsl(var(--clr-dark));
+    padding: 0.5em 1em;
+    margin-inline: auto;
+    transform: translateY(-100%);
+    transition: transform 200ms ease-out;
+  }
+
+  .skip-to-content:focus {
+    transform: translateY(0);
+  }
+
   .home {
     background-image: url(../assets/home/background-home-mobile.jpg);
   }
