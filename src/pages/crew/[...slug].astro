@@ -1,0 +1,124 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const crewEntries = await getCollection("crew");
+  return crewEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const crew = await getCollection("crew");
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<MainLayout class="crew">
+  <main id="main" class="grid-container grid-container--crew">
+    <h1 class="numbered-title"><span aria-hidden="true">02</span>Meet your crew</h1>
+    <article class="crew-info flow">
+      <header class="flow flow--space-small">
+        <h2 class="fs-600 ff-serif uppercase">{entry.data.role}</h2>
+        <p class="fs-700 uppercase ff-serif">{entry.data.name}</p>
+      </header>
+      <Content />
+    </article>
+    <div class="dot-indicators flex">
+      {
+        crew.map((crewMember) => (
+          <a href={`/crew/${crewMember.slug}`}>
+            <span class="sr-only">{crewMember.data.role}</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <img src={entry.data.imgUrl} alt={entry.data.title} />
+  </main>
+</MainLayout>
+
+<style>
+  .crew-info h2 {
+    color: hsl(var(--clr-white) / 0.5);
+  }
+  .grid-container--crew {
+    grid-template-areas:
+      "title"
+      "image"
+      "tabs"
+      "content";
+    row-gap: 2.5rem;
+  }
+
+  .grid-container--crew > .numbered-title {
+    grid-area: title;
+  }
+
+  .grid-container--crew > img {
+    grid-area: image;
+    max-width: 50%;
+    border-bottom: 1px solid hsl(var(--clr-white) / 0.1);
+  }
+
+  .grid-container--crew > .crew-info {
+    grid-area: content;
+  }
+
+  .grid-container--crew > .dot-indicators {
+    grid-area: tabs;
+  }
+
+  .crew {
+    background-image: url(../../assets/crew/background-crew-mobile.jpg);
+  }
+
+  @media (min-width: 35em) {
+    .numbered-title {
+      justify-self: left;
+      margin-block-start: 2rem;
+    }
+
+    .crew {
+      background-position: center center;
+      background-image: url(../../assets/crew/background-crew-tablet.jpg);
+    }
+
+    .grid-container--crew {
+      grid-template-areas:
+        "title"
+        "content"
+        "tabs"
+        "image";
+      row-gap: 2.5rem;
+      padding-bottom: 0;
+    }
+  }
+
+  @media (min-width: 45em) {
+    .crew {
+      background-image: url(../../assets/crew/background-crew-desktop.jpg);
+    }
+
+    .grid-container--crew {
+      grid-template-areas:
+        ". title title ."
+        ". content image ."
+        ". tabs image .";
+    }
+
+    .grid-container--crew > .dot-indicators,
+    .grid-container--crew > .crew-info {
+      justify-self: start;
+    }
+
+    .grid-container--crew > img {
+      max-width: 90%;
+      align-self: end;
+      border-bottom: 0;
+    }
+  }
+</style>

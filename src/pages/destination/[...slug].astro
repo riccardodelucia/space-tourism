@@ -19,7 +19,7 @@ const { Content } = await entry.render();
 
 <MainLayout class="destination">
   <main id="main" class="grid-container grid-container--destination">
-    <h1 class="numbered-title"><span aria-hidden="true">01</span> Pick your destination</h1>
+    <h1 class="numbered-title"><span aria-hidden="true">01</span>Pick your destination</h1>
     <img src={entry.data.imgUrl} alt={entry.data.title} />
     <div class="tab-list underline-indicators flex">
       {
@@ -30,7 +30,7 @@ const { Content } = await entry.render();
         ))
       }
     </div>
-    <article class="destination-info">
+    <article class="destination-info flow">
       <h2 class="fs-800 uppercase ff-serif">{entry.data.title}</h2>
       <Content />
       <div class="destination-meta flex">
