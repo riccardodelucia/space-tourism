@@ -20,7 +20,10 @@ const { Content } = await entry.render();
 <MainLayout class="destination">
   <main id="main" class="grid-container grid-container--destination">
     <h1 class="numbered-title"><span aria-hidden="true">01</span>Pick your destination</h1>
-    <img src={entry.data.imgUrl} alt={entry.data.title} />
+    <picture>
+      <source srcset={`${entry.data.imgUrl}.webp`} type="image/webp" />
+      <img src={`${entry.data.imgUrl}.png`} alt={entry.data.title} />
+    </picture>
     <div class="tab-list underline-indicators flex">
       {
         destinations.map((destination) => (
@@ -61,7 +64,7 @@ const { Content } = await entry.render();
     grid-area: title;
   }
 
-  .grid-container--destination > img {
+  .grid-container--destination > picture {
     grid-area: image;
     max-width: 60%;
   }
@@ -124,7 +127,7 @@ const { Content } = await entry.render();
       --gap: min(6vw, 6rem);
     }
 
-    .grid-container--destination > img {
+    .grid-container--destination > picture {
       max-width: 90%;
     }
   }

@@ -1,7 +1,7 @@
 ---
 role: specialist
 name: Mark Shuttleworth
-imgUrl: "/crew/image-mark-shuttleworth.png"
+imgUrl: "/crew/image-mark-shuttleworth"
 ---
 
 Mark Richard Shuttleworth is the founder and CEO of Canonical, the company behind

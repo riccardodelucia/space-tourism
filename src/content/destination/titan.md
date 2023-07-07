@@ -1,5 +1,5 @@
 ---
-imgUrl: "/destination/image-titan.png"
+imgUrl: "/destination/image-titan"
 distance: 1.6 bil. km
 travelTime: 7 years
 title: Titan

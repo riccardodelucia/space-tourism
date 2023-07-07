@@ -1,7 +1,7 @@
 ---
 role: engineer
 name: Anousheh Ansari
-imgUrl: "/crew/image-anousheh-ansari.png"
+imgUrl: "/crew/image-anousheh-ansari"
 ---
 
 Anousheh Ansari is an Iranian American engineer and co-founder of Prodea Systems.

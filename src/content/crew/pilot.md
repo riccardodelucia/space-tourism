@@ -1,7 +1,7 @@
 ---
 role: pilot
 name: Victor Glover
-imgUrl: "/crew/image-victor-glover.png"
+imgUrl: "/crew/image-victor-glover"
 ---
 
 Pilot on the first operational flight of the SpaceX Crew Dragon to the

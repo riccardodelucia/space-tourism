@@ -36,8 +36,10 @@ const { Content } = await entry.render();
         ))
       }
     </div>
-
-    <img src={entry.data.imgUrl} alt={entry.data.title} />
+    <picture>
+      <source srcset={`${entry.data.imgUrl}.webp`} type="image/webp" />
+      <img src={`${entry.data.imgUrl}.png`} alt={entry.data.title} />
+    </picture>
   </main>
 </MainLayout>
 
@@ -58,7 +60,7 @@ const { Content } = await entry.render();
     grid-area: title;
   }
 
-  .grid-container--crew > img {
+  .grid-container--crew > picture {
     grid-area: image;
     max-width: 50%;
     border-bottom: 1px solid hsl(var(--clr-white) / 0.1);
@@ -115,7 +117,7 @@ const { Content } = await entry.render();
       justify-self: start;
     }
 
-    .grid-container--crew > img {
+    .grid-container--crew > picture {
       max-width: 90%;
       align-self: end;
       border-bottom: 0;

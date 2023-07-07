@@ -1,7 +1,7 @@
 ---
 role: commander
 name: Douglas Hurley
-imgUrl: "/crew/image-douglas-hurley.png"
+imgUrl: "/crew/image-douglas-hurley"
 ---
 
 Douglas Gerald Hurley is an American engineer, former Marine Corps pilot

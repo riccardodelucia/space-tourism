@@ -1,5 +1,5 @@
 ---
-imgUrl: "/destination/image-mars.png"
+imgUrl: "/destination/image-mars"
 distance: 225 mil. km
 travelTime: 9 months
 title: Mars

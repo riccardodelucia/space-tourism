@@ -1,5 +1,5 @@
 ---
-imgUrl: "/destination/image-moon.png"
+imgUrl: "/destination/image-moon"
 distance: 384,400 km
 travelTime: 3 days
 title: Moon

@@ -1,5 +1,5 @@
 ---
-imgUrl: "/destination/image-europa.png"
+imgUrl: "/destination/image-europa"
 distance: 628 mil. km
 travelTime: 3 years
 title: Europa
