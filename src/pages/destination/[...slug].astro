@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<MainLayout>
+<MainLayout class="destination">
   <main id="main" class="grid-container grid-container--destination">
     <h1 class="numbered-title"><span aria-hidden="true">01</span> Pick your destination</h1>
     <img src={entry.data.imgUrl} alt={entry.data.title} />
@@ -25,10 +25,10 @@ const { Content } = await entry.render();
       <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Europa</button>
       <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Titan</button>
     </div>
-    <article>
+    <article class="destination-info">
       <h2 class="fs-800 uppercase ff-serif">{entry.data.title}</h2>
       <Content />
-      <div class="flex">
+      <div class="destination-meta flex">
         <div>
           <h3 class="text-accent fs-200 uppercase">Avg. distance</h3>
           <p class="fs-500 ff-serif uppercase">{entry.data.distance}</p>
@@ -41,3 +41,86 @@ const { Content } = await entry.render();
     </article>
   </main>
 </MainLayout>
+
+<style>
+  .grid-container--destination {
+    grid-template-areas:
+      "title"
+      "image"
+      "tabs"
+      "content";
+    row-gap: 2.5rem;
+  }
+
+  .grid-container--destination .numbered-title {
+    grid-area: title;
+  }
+
+  .grid-container--destination > img {
+    grid-area: image;
+    max-width: 60%;
+  }
+
+  .grid-container--destination > .tab-list {
+    grid-area: tabs;
+  }
+
+  .grid-container--destination > .destination-info {
+    grid-area: content;
+  }
+
+  .destination-meta {
+    flex-direction: column;
+    border-top: 1px solid hsl(var(--clr-white) / 0.1);
+    padding-top: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .destination-meta p {
+    font-size: 1.75rem;
+  }
+
+  .destination {
+    background-image: url(../../assets/destination/background-destination-mobile.jpg);
+  }
+
+  @media (min-width: 35em) {
+    .destination {
+      background-position: center center;
+      background-image: url(../../assets/destination/background-destination-tablet.jpg);
+    }
+
+    .numbered-title {
+      justify-self: left;
+      margin-block-start: 2rem;
+    }
+
+    .destination-meta {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+  }
+  @media (min-width: 45em) {
+    .destination {
+      background-image: url(../../assets/destination/background-destination-desktop.jpg);
+    }
+    .grid-container--destination {
+      grid-template-areas:
+        ". title title ."
+        ". image tabs ."
+        ". image content .";
+
+      justify-items: start;
+      align-content: start;
+    }
+
+    .destination-meta {
+      justify-content: start;
+      --gap: 6rem;
+    }
+
+    .grid-container--destination > img {
+      max-width: 90%;
+    }
+  }
+</style>

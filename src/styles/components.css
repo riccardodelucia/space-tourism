@@ -40,6 +40,7 @@
 }
 
 .underline-indicators > * {
+  background-color: transparent;
   cursor: pointer;
   padding: var(--underline-gap, 1rem) 0;
   border: 0;
