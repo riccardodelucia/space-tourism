@@ -1,0 +1,43 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const destinationEntries = await getCollection("destination");
+  return destinationEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<MainLayout>
+  <main id="main" class="grid-container grid-container--destination">
+    <h1 class="numbered-title"><span aria-hidden="true">01</span> Pick your destination</h1>
+    <img src={entry.data.imgUrl} alt={entry.data.title} />
+    <div class="tab-list underline-indicators flex">
+      <button aria-selected="true" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Moon</button>
+      <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Mars</button>
+      <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Europa</button>
+      <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Titan</button>
+    </div>
+    <article>
+      <h2 class="fs-800 uppercase ff-serif">{entry.data.title}</h2>
+      <Content />
+      <div class="flex">
+        <div>
+          <h3 class="text-accent fs-200 uppercase">Avg. distance</h3>
+          <p class="fs-500 ff-serif uppercase">{entry.data.distance}</p>
+        </div>
+        <div>
+          <h3 class="text-accent fs-200 uppercase">Est. travel time</h3>
+          <p class="fs-500 ff-serif uppercase">{entry.data.travelTime}</p>
+        </div>
+      </div>
+    </article>
+  </main>
+</MainLayout>
