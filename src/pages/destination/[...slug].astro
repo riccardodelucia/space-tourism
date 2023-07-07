@@ -11,6 +11,8 @@ export async function getStaticPaths() {
   }));
 }
 
+const destinations = await getCollection("destination");
+
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
@@ -20,10 +22,13 @@ const { Content } = await entry.render();
     <h1 class="numbered-title"><span aria-hidden="true">01</span> Pick your destination</h1>
     <img src={entry.data.imgUrl} alt={entry.data.title} />
     <div class="tab-list underline-indicators flex">
-      <button aria-selected="true" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Moon</button>
-      <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Mars</button>
-      <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Europa</button>
-      <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Titan</button>
+      {
+        destinations.map((destination) => (
+          <a href={`/destination/${destination.slug}`} class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">
+            {destination.data.title}
+          </a>
+        ))
+      }
     </div>
     <article class="destination-info">
       <h2 class="fs-800 uppercase ff-serif">{entry.data.title}</h2>
@@ -116,7 +121,7 @@ const { Content } = await entry.render();
 
     .destination-meta {
       justify-content: start;
-      --gap: 6rem;
+      --gap: min(6vw, 6rem);
     }
 
     .grid-container--destination > img {
