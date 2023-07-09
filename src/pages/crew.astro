@@ -32,7 +32,7 @@ const crewEntries = await getCollection("crew");
             role="tab"
             aria-controls={`${entry.data.role}-tab`}
             class="uppercase ff-sans-cond text-accent letter-spacing-2"
-            tabindex="0"
+            tabindex={idx === 0 ? 0 : -1}
             data-image={`${entry.data.role}-image`}>
             <span class="sr-only">{entry.data.role}</span>
           </button>

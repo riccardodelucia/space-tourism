@@ -28,7 +28,7 @@ const destinationEntries = await getCollection("destination");
             role="tab"
             aria-controls={`${entry.data.destination}-tab`}
             class="uppercase ff-sans-cond text-accent letter-spacing-2"
-            tabindex="0"
+            tabindex={idx === 0 ? 0 : -1}
             data-image={`${entry.data.destination}-image`}>
             {entry.data.destination}
           </button>
@@ -39,7 +39,11 @@ const destinationEntries = await getCollection("destination");
       destinationEntries.map(async (entry, idx) => {
         const { Content } = await entry.render();
         return (
-          <article role="tabpanel" id={`${entry.data.destination}-tab`} class:list={["destination-info", "flow", { hidden: idx !== 0 }]}>
+          <article
+            tabindex={idx === 0 ? 0 : -1}
+            role="tabpanel"
+            id={`${entry.data.destination}-tab`}
+            class:list={["destination-info", "flow", { hidden: idx !== 0 }]}>
             <h2 class="fs-800 uppercase ff-serif">{entry.data.destination}</h2>
             <Content />
             <div class="destination-meta flex">
