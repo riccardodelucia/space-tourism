@@ -14,7 +14,7 @@ const destinationEntries = await getCollection("destination");
         return (
           <picture id={`${entry.data.destination}-image`} class:list={[{ hidden: idx !== 0 }]}>
             <source srcset={`${entry.data.imgUrl}.webp`} type="image/webp" />
-            <img src={`${entry.data.imgUrl}.png`} alt={entry.data.title} />
+            <img src={`${entry.data.imgUrl}.png`} alt={entry.data.destination} />
           </picture>
         );
       })
@@ -23,6 +23,7 @@ const destinationEntries = await getCollection("destination");
       {
         destinationEntries.map((entry, idx) => (
           <button
+            type="button"
             aria-selected={idx === 0}
             role="tab"
             aria-controls={`${entry.data.destination}-tab`}
@@ -57,42 +58,6 @@ const destinationEntries = await getCollection("destination");
     }
   </main>
 </MainLayout>
-
-<script>
-  function hideAllContent(parent, content) {
-    parent.querySelectorAll(content).forEach((item) => item.classList.add("hidden"));
-  }
-
-  function showContent(parent, content) {
-    parent.querySelector(content).classList.remove("hidden");
-  }
-
-  function changeTabPanel(e) {
-    const targetTab = e.target;
-    const targetPanel = targetTab.getAttribute("aria-controls");
-    const targetImage = targetTab.getAttribute("data-image");
-
-    const tabContainer = targetTab.parentNode;
-    const mainContainer = tabContainer.parentNode;
-
-    tabContainer.querySelector('[aria-selected="true"]').setAttribute("aria-selected", false);
-
-    targetTab.setAttribute("aria-selected", true);
-
-    hideAllContent(mainContainer, '[role="tabpanel"]');
-    showContent(mainContainer, [`#${targetPanel}`]);
-
-    hideAllContent(mainContainer, "picture");
-    showContent(mainContainer, [`#${targetImage}`]);
-  }
-
-  const tabList = document.querySelector('[role="tablist"]');
-  const tabs = tabList.querySelectorAll('[role="tab"]');
-
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", changeTabPanel);
-  });
-</script>
 
 <style>
   .destination {

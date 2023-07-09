@@ -1,0 +1,152 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+import { getCollection } from "astro:content";
+
+const crewEntries = await getCollection("crew");
+---
+
+<MainLayout class="crew">
+  <main id="main" class="grid grid-layout">
+    <h1 class="numbered-title"><span aria-hidden="true">02</span>Meet your crew</h1>
+    {
+      crewEntries.map(async (entry, idx) => {
+        const { Content } = await entry.render();
+        return (
+          <article role="tabpanel" id={`${entry.data.role}-tab`} class:list={["crew-info", "flow", { hidden: idx !== 0 }]}>
+            <header class="flow flow--space-small">
+              <h2 class="fs-600 ff-serif uppercase">{entry.data.role}</h2>
+              <p class="fs-700 uppercase ff-serif">{entry.data.name}</p>
+            </header>
+            <Content />
+          </article>
+        );
+      })
+    }
+    <div role="tablist" aria-label="crew member list" class="dot-indicators flex">
+      {
+        crewEntries.map((entry, idx) => (
+          <button
+            type="button"
+            aria-selected={idx === 0}
+            role="tab"
+            aria-controls={`${entry.data.role}-tab`}
+            class="uppercase ff-sans-cond text-accent letter-spacing-2"
+            tabindex="0"
+            data-image={`${entry.data.role}-image`}>
+            <span class="sr-only">{entry.data.role}</span>
+          </button>
+        ))
+      }
+    </div>
+    {
+      crewEntries.map((entry, idx) => {
+        return (
+          <picture id={`${entry.data.role}-image`} class:list={[{ hidden: idx !== 0 }]}>
+            <source srcset={`${entry.data.imgUrl}.webp`} type="image/webp" />
+            <img src={`${entry.data.imgUrl}.png`} alt={entry.data.role} />
+          </picture>
+        );
+      })
+    }
+  </main>
+</MainLayout>
+
+<style>
+  .crew {
+    background-image: url(../../assets/crew/background-crew-mobile.jpg);
+  }
+
+  .crew-info h2 {
+    color: hsl(var(--clr-white) / 0.5);
+  }
+
+  .grid-layout {
+    text-align: center;
+    place-items: center;
+    grid-template-areas:
+      "title"
+      "image"
+      "tabs"
+      "info";
+    row-gap: 2.5rem;
+    padding-inline: 1rem;
+    padding-bottom: 4rem;
+  }
+
+  .grid-layout > .numbered-title {
+    grid-area: title;
+  }
+
+  .grid-layout > picture {
+    grid-area: image;
+    max-width: 50%;
+    border-bottom: 1px solid hsl(var(--clr-white) / 0.1);
+  }
+
+  .grid-layout > .crew-info {
+    grid-area: info;
+  }
+
+  .grid-layout > .dot-indicators {
+    grid-area: tabs;
+  }
+
+  @media (min-width: 35em) {
+    .crew {
+      background-position: center center;
+      background-image: url(../../assets/crew/background-crew-tablet.jpg);
+    }
+
+    .numbered-title {
+      justify-self: left;
+      margin-block-start: 2rem;
+      margin-inline-start: 2rem;
+    }
+  }
+
+  @media (min-width: 45em) {
+    .crew {
+      background-image: url(../../assets/crew/background-crew-desktop.jpg);
+    }
+
+    .grid-layout {
+      grid-template-rows: min-content 1fr min-content;
+      grid-template-columns: minmax(2rem, 1fr) minmax(0, 50rem) minmax(0, 30rem) minmax(2rem, 1fr);
+      grid-template-areas:
+        ". title title ."
+        ". info image ."
+        ". tabs image .";
+      padding-bottom: 0;
+      text-align: left;
+      align-items: start;
+    }
+
+    article {
+      max-width: 50ch;
+    }
+
+    .numbered-title {
+      margin-inline-start: 0;
+    }
+
+    .grid-layout > .dot-indicators,
+    .grid-layout > .crew-info {
+      justify-self: start;
+    }
+
+    .grid-layout > picture {
+      max-width: 70%;
+      align-self: end;
+      border-bottom: 0;
+    }
+
+    .grid-layout > .dot-indicators {
+      align-self: start;
+    }
+
+    .dot-indicators {
+      margin-bottom: 4rem;
+    }
+  }
+</style>
