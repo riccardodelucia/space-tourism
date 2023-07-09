@@ -5,7 +5,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 <MainLayout class="home">
   <a class="skip-to-content" href="#main">Skip to content</a>
 
-  <main id="main" class="grid-container grid-container--home">
+  <main id="main" class="grid grid-layout">
     <div>
       <h1 class="text-accent ff-sans-cond uppercase letter-spacing-1">
         So, you want to travel to <span class="d-block fs-900 ff-serif text-white">Space</span>
@@ -22,6 +22,14 @@ import MainLayout from "../layouts/MainLayout.astro";
 </MainLayout>
 
 <style>
+  .grid-layout {
+    text-align: center;
+    place-items: center;
+    padding-inline: 1rem;
+    padding-bottom: 4rem;
+    --row-gap: 2.5rem;
+  }
+
   .skip-to-content {
     position: absolute;
     z-index: 9999;
@@ -42,6 +50,10 @@ import MainLayout from "../layouts/MainLayout.astro";
   }
 
   @media (min-width: 35em) {
+    .grid-layout h1 {
+      margin-top: 2rem;
+    }
+
     .home {
       background-position: center center;
       background-image: url(../assets/home/background-home-tablet.jpg);
@@ -52,15 +64,22 @@ import MainLayout from "../layouts/MainLayout.astro";
       background-image: url(../assets/home/background-home-desktop.jpg);
     }
 
-    .grid-container--home {
+    .grid-layout {
+      text-align: left;
+      grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(2rem, 1fr);
       padding-bottom: max(6rem, 20vh);
       align-items: end;
     }
-    .grid-container--home > *:first-child {
+
+    .grid-layout p {
+      max-width: 50ch;
+    }
+
+    .grid-layout > *:first-child {
       grid-column: 2;
     }
 
-    .grid-container--home > *:last-child {
+    .grid-layout > *:last-child {
       grid-column: 3;
     }
   }

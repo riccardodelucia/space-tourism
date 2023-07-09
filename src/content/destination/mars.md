@@ -2,7 +2,7 @@
 imgUrl: "/destination/image-mars"
 distance: 225 mil. km
 travelTime: 9 months
-title: Mars
+destination: mars
 ---
 
 Don’t forget to pack your hiking boots. You’ll need them to tackle Olympus Mons,

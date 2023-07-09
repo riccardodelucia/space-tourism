@@ -2,7 +2,7 @@
 imgUrl: "/destination/image-europa"
 distance: 628 mil. km
 travelTime: 3 years
-title: Europa
+destination: europa
 ---
 
 The smallest of the four Galilean moons orbiting Jupiter, Europa is a

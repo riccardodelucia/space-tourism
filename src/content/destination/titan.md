@@ -2,7 +2,7 @@
 imgUrl: "/destination/image-titan"
 distance: 1.6 bil. km
 travelTime: 7 years
-title: Titan
+destination: titan
 ---
 
 The only moon known to have a dense atmosphere other than Earth, Titan

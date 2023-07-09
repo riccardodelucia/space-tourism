@@ -1,0 +1,194 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+import { getCollection } from "astro:content";
+
+const destinationEntries = await getCollection("destination");
+---
+
+<MainLayout class="destination">
+  <main id="main" class="grid grid-layout">
+    <h1 class="numbered-title"><span aria-hidden="true">01</span>Pick your destination</h1>
+    {
+      destinationEntries.map((entry, idx) => {
+        return (
+          <picture id={`${entry.data.destination}-image`} class:list={[{ hidden: idx !== 0 }]}>
+            <source srcset={`${entry.data.imgUrl}.webp`} type="image/webp" />
+            <img src={`${entry.data.imgUrl}.png`} alt={entry.data.title} />
+          </picture>
+        );
+      })
+    }
+    <div role="tablist" aria-label="destination list" class="tab-list underline-indicators flex">
+      {
+        destinationEntries.map((entry, idx) => (
+          <button
+            aria-selected={idx === 0}
+            role="tab"
+            aria-controls={`${entry.data.destination}-tab`}
+            class="uppercase ff-sans-cond text-accent letter-spacing-2"
+            tabindex="0"
+            data-image={`${entry.data.destination}-image`}>
+            {entry.data.destination}
+          </button>
+        ))
+      }
+    </div>
+    {
+      destinationEntries.map(async (entry, idx) => {
+        const { Content } = await entry.render();
+        return (
+          <article role="tabpanel" id={`${entry.data.destination}-tab`} class:list={["destination-info", "flow", { hidden: idx !== 0 }]}>
+            <h2 class="fs-800 uppercase ff-serif">{entry.data.destination}</h2>
+            <Content />
+            <div class="destination-meta flex">
+              <div>
+                <h3 class="text-accent fs-200 uppercase">Avg. distance</h3>
+                <p class="fs-500 ff-serif uppercase">{entry.data.distance}</p>
+              </div>
+              <div>
+                <h3 class="text-accent fs-200 uppercase">Est. travel time</h3>
+                <p class="fs-500 ff-serif uppercase">{entry.data.travelTime}</p>
+              </div>
+            </div>
+          </article>
+        );
+      })
+    }
+  </main>
+</MainLayout>
+
+<script>
+  function hideAllContent(parent, content) {
+    parent.querySelectorAll(content).forEach((item) => item.classList.add("hidden"));
+  }
+
+  function showContent(parent, content) {
+    parent.querySelector(content).classList.remove("hidden");
+  }
+
+  function changeTabPanel(e) {
+    const targetTab = e.target;
+    const targetPanel = targetTab.getAttribute("aria-controls");
+    const targetImage = targetTab.getAttribute("data-image");
+
+    const tabContainer = targetTab.parentNode;
+    const mainContainer = tabContainer.parentNode;
+
+    tabContainer.querySelector('[aria-selected="true"]').setAttribute("aria-selected", false);
+
+    targetTab.setAttribute("aria-selected", true);
+
+    hideAllContent(mainContainer, '[role="tabpanel"]');
+    showContent(mainContainer, [`#${targetPanel}`]);
+
+    hideAllContent(mainContainer, "picture");
+    showContent(mainContainer, [`#${targetImage}`]);
+  }
+
+  const tabList = document.querySelector('[role="tablist"]');
+  const tabs = tabList.querySelectorAll('[role="tab"]');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", changeTabPanel);
+  });
+</script>
+
+<style>
+  .destination {
+    background-image: url(../../assets/destination/background-destination-mobile.jpg);
+  }
+
+  .grid-layout {
+    text-align: center;
+    place-items: center;
+    padding-inline: 1rem;
+    padding-bottom: 4rem;
+
+    grid-template-areas:
+      "title"
+      "image"
+      "tabs"
+      "info";
+    --row-gap: 2.5rem;
+  }
+
+  .grid-layout .numbered-title {
+    grid-area: title;
+  }
+
+  .grid-layout > picture {
+    grid-area: image;
+    max-width: 60%;
+    align-self: start;
+  }
+
+  .grid-layout > .tab-list {
+    grid-area: tabs;
+  }
+
+  .grid-layout > .destination-info {
+    grid-area: info;
+  }
+
+  .destination-meta {
+    flex-direction: column;
+    border-top: 1px solid hsl(var(--clr-white) / 0.1);
+    padding-top: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .destination-meta p {
+    font-size: 1.75rem;
+  }
+
+  @media (min-width: 35em) {
+    .destination {
+      background-position: center center;
+      background-image: url(../../assets/destination/background-destination-tablet.jpg);
+    }
+
+    .numbered-title {
+      justify-self: left;
+      margin-block-start: 2rem;
+      margin-inline-start: 2rem;
+    }
+
+    .destination-meta {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+  }
+
+  @media (min-width: 45em) {
+    .destination {
+      background-image: url(../../assets/destination/background-destination-desktop.jpg);
+    }
+
+    .numbered-title {
+      margin-inline-start: 0;
+    }
+
+    .grid-layout {
+      text-align: left;
+      --column-gap: 2rem;
+      grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(2rem, 1fr);
+      grid-template-areas:
+        ". title title ."
+        ". image tabs ."
+        ". image info .";
+
+      justify-items: start;
+      align-content: start;
+    }
+
+    .grid-layout > picture {
+      max-width: 90%;
+    }
+
+    .destination-meta {
+      justify-content: start;
+      --gap: min(6vw, 6rem);
+    }
+  }
+</style>

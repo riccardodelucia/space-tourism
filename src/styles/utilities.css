@@ -63,6 +63,10 @@
   border: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 /* colors */
 .bg-dark {
   background-color: hsl(var(--clr-dark));

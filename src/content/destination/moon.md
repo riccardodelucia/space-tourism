@@ -2,7 +2,7 @@
 imgUrl: "/destination/image-moon"
 distance: 384,400 km
 travelTime: 3 days
-title: Moon
+destination: moon
 ---
 
 See our planet as you’ve never seen it before. A perfect relaxing trip away to help regain perspective and come
