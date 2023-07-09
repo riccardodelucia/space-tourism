@@ -18,20 +18,28 @@ const { Content } = await entry.render();
 ---
 
 <MainLayout class="destination">
-  <main id="main" class="grid-container grid-container--destination">
+  <main id="main" class="grid grid-layout">
     <h1 class="numbered-title"><span aria-hidden="true">01</span>Pick your destination</h1>
     <picture>
       <source srcset={`${entry.data.imgUrl}.webp`} type="image/webp" />
       <img src={`${entry.data.imgUrl}.png`} alt={entry.data.title} />
     </picture>
-    <div class="tab-list underline-indicators flex">
-      {
+    <div role="tablist" aria-label="destination list" class="tab-list underline-indicators flex">
+      <button
+        aria-selected="true"
+        role="tab"
+        aria-controls="moon-tab"
+        class="uppercase ff-sans-cond text-accent letter-spacing-2"
+        tabindex="0"
+        data-image="moon-image">Moon</button
+      >
+      <!-- {
         destinations.map((destination) => (
           <a href={`/destination/${destination.slug}`} class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">
             {destination.data.title}
           </a>
         ))
-      }
+      } -->
     </div>
     <article class="destination-info flow">
       <h2 class="fs-800 uppercase ff-serif">{entry.data.title}</h2>
@@ -51,30 +59,40 @@ const { Content } = await entry.render();
 </MainLayout>
 
 <style>
-  .grid-container--destination {
+  .destination {
+    background-image: url(../../assets/destination/background-destination-mobile.jpg);
+  }
+
+  .grid-layout {
+    text-align: center;
+    place-items: center;
+    padding-inline: 1rem;
+    padding-bottom: 4rem;
+
     grid-template-areas:
       "title"
       "image"
       "tabs"
-      "content";
-    row-gap: 2.5rem;
+      "info";
+    --row-gap: 2.5rem;
   }
 
-  .grid-container--destination .numbered-title {
+  .grid-layout .numbered-title {
     grid-area: title;
   }
 
-  .grid-container--destination > picture {
+  .grid-layout > picture {
     grid-area: image;
     max-width: 60%;
+    align-self: start;
   }
 
-  .grid-container--destination > .tab-list {
+  .grid-layout > .tab-list {
     grid-area: tabs;
   }
 
-  .grid-container--destination > .destination-info {
-    grid-area: content;
+  .grid-layout > .destination-info {
+    grid-area: info;
   }
 
   .destination-meta {
@@ -88,10 +106,6 @@ const { Content } = await entry.render();
     font-size: 1.75rem;
   }
 
-  .destination {
-    background-image: url(../../assets/destination/background-destination-mobile.jpg);
-  }
-
   @media (min-width: 35em) {
     .destination {
       background-position: center center;
@@ -101,6 +115,7 @@ const { Content } = await entry.render();
     .numbered-title {
       justify-self: left;
       margin-block-start: 2rem;
+      margin-inline-start: 2rem;
     }
 
     .destination-meta {
@@ -108,27 +123,36 @@ const { Content } = await entry.render();
       justify-content: space-evenly;
     }
   }
+
   @media (min-width: 45em) {
     .destination {
       background-image: url(../../assets/destination/background-destination-desktop.jpg);
     }
-    .grid-container--destination {
+
+    .numbered-title {
+      margin-inline-start: 0;
+    }
+
+    .grid-layout {
+      text-align: left;
+      --column-gap: 2rem;
+      grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(2rem, 1fr);
       grid-template-areas:
         ". title title ."
         ". image tabs ."
-        ". image content .";
+        ". image info .";
 
       justify-items: start;
       align-content: start;
     }
 
+    .grid-layout > picture {
+      max-width: 90%;
+    }
+
     .destination-meta {
       justify-content: start;
       --gap: min(6vw, 6rem);
-    }
-
-    .grid-container--destination > picture {
-      max-width: 90%;
     }
   }
 </style>

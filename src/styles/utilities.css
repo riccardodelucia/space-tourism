@@ -9,7 +9,8 @@
 
 .grid {
   display: grid;
-  gap: var(--gap, 1rem);
+  grid-row-gap: var(--row-gap, 1rem);
+  grid-column-gap: var(--column-gap, 1rem);
 }
 
 .d-block {
@@ -30,15 +31,15 @@
   max-width: 80rem;
 }
 
-.grid-container {
+/* .grid-container {
   display: grid;
   text-align: center;
   place-items: center;
   padding-inline: 1rem;
   padding-bottom: 4rem;
-}
+} */
 
-.grid-container p:not([class]) {
+/* .grid-container p:not([class]) {
   max-width: 50ch;
 }
 
@@ -48,7 +49,7 @@
     column-gap: var(--container-gap, 2rem);
     grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(2rem, 1fr);
   }
-}
+} */
 
 .sr-only {
   position: absolute;

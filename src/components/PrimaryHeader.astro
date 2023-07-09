@@ -11,7 +11,7 @@ import logo from "../assets/shared/logo.svg";
   >
   <nav>
     <ul id="primary-navigation" data-visible="false" class="primary-navigation underline-indicators flex">
-      <li class="active">
+      <li>
         <a class="ff-sans-cond uppercase text-white letter-spacing-2" href="/"><span aria-hidden="true">00</span>Home</a>
       </li>
       <li>
@@ -33,6 +33,17 @@ import logo from "../assets/shared/logo.svg";
   const navToggle = document.querySelector(".mobile-nav-toggle");
   const nav = document.querySelector(".primary-navigation");
 
+  // setup current page
+  const navLinks = nav.querySelectorAll("a");
+  navLinks.forEach((link) => {
+    console.log(link.getAttribute("href"));
+
+    if (link.getAttribute("href") === window.location.pathname) {
+      link.setAttribute("aria-current", "page");
+    }
+  });
+
+  // manage menu button
   navToggle.addEventListener("click", () => {
     const visibility = nav.getAttribute("data-visible");
     if (visibility === "false") {

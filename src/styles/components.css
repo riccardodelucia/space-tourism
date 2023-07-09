@@ -47,15 +47,19 @@
   border-bottom: 0.2rem solid hsl(var(--clr-white) / 0);
 }
 
+.underline-indicators a {
+  text-decoration: none;
+}
+
 .underline-indicators > *:hover,
 .underline-indicators > *:focus {
   border-color: hsl(var(--clr-white) / 0.5);
 }
 
-.underline-indicators > .active,
+.underline-indicators > *:has([aria-current="page"]),
 .underline-indicators > [aria-selected="true"] {
   color: hsl(var(--clr-white) / 1);
-  border-color: hsl(var(--clr-white));
+  border-color: hsl(var(--clr-white) / 1);
 }
 
 .tab-list {
